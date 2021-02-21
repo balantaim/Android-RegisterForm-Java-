@@ -1,0 +1,149 @@
+package com.example.a10appuiinterface;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
+
+public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
+
+    private EditText editTxtName, editTxtEmail, editTxtPassword, editTxtPassRepeat;
+    private Button btnRegister;
+    private TextView txtWarnName, txtWarnEmail, txtWarnPass, txtWarnPassRepeat;
+    private Spinner countriesSpinner;
+    private RadioGroup rgGender;
+    private CheckBox agreementCheck;
+    private ConstraintLayout parent;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
+        setContentView(R.layout.activity_main);
+
+
+
+        initViews();
+
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initRegister();
+            }
+        });
+    }
+
+    private void initRegister(){
+        Log.d(TAG, "initRegister: Started");
+
+        if(validateData()){
+            if(agreementCheck.isChecked()){
+                showSnackBar();
+            } else {
+                Toast.makeText(this, getResources().getString(R.string.toast_agree), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    private void showSnackBar(){
+        Log.d(TAG, "showSnackBar is started");
+
+        String name = editTxtName.getText().toString();
+        String email = editTxtEmail.getText().toString();
+        String country = countriesSpinner.getSelectedItem().toString();
+
+        String snackText = "Name: " + name + "\n" +
+                "Email: " + email;
+
+        Log.d(TAG, snackText);
+
+        Snackbar.make(parent, snackText, Snackbar.LENGTH_INDEFINITE)
+                .setAction("Dismiss", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        editTxtName.setText("");
+                        editTxtEmail.setText("");
+                        editTxtPassword.setText("");
+                        editTxtPassRepeat.setText("");
+                    }
+                }).show();
+    }
+
+    private boolean validateData(){
+        Log.d(TAG, "validateData: Started");
+        if(editTxtName.getText().toString().equals("")){
+            txtWarnName.setVisibility(View.VISIBLE);
+            return false;
+        } else if(editTxtName.length()<6) {
+            Toast.makeText(this, getResources().getString(R.string.toast_name_length), Toast.LENGTH_SHORT).show();
+            txtWarnName.setVisibility(View.VISIBLE);
+            return false;
+        } else {txtWarnName.setVisibility(View.GONE);}
+
+        if(editTxtEmail.getText().toString().equals("")){
+            txtWarnEmail.setVisibility(View.VISIBLE);
+            return false;
+        } else if(!editTxtEmail.getText().toString().contains("@")){
+            txtWarnEmail.setVisibility(View.VISIBLE);
+            return false;
+        } else {txtWarnEmail.setVisibility(View.GONE);}
+
+        if(editTxtPassword.getText().toString().equals("")){
+            txtWarnPass.setVisibility(View.VISIBLE);
+            return false;
+        } else if(editTxtPassword.length()<6){
+            Toast.makeText(this, getResources().getString(R.string.toast_pass_length), Toast.LENGTH_SHORT).show();
+            txtWarnPass.setVisibility(View.VISIBLE);
+            return false;
+        } else {txtWarnPass.setVisibility(View.GONE);}
+
+        if(editTxtPassRepeat.getText().toString().equals("")){
+            txtWarnPassRepeat.setVisibility(View.VISIBLE);
+            return false;
+        } else {txtWarnPassRepeat.setVisibility(View.GONE);}
+
+        if(!editTxtPassword.getText().toString().equals(editTxtPassRepeat.getText().toString())){
+            Toast.makeText(this, getResources().getString(R.string.toast_pass_match), Toast.LENGTH_SHORT).show();
+            txtWarnPassRepeat.setVisibility(View.VISIBLE);
+            return false;
+        } else {
+            txtWarnPassRepeat.setVisibility(View.GONE);
+        }
+        return true;
+    }
+
+    private void initViews(){
+        Log.d(TAG, "Init views: Started");
+        editTxtName = findViewById(R.id.editTxtName);
+        editTxtEmail = findViewById(R.id.editTxtEmail);
+        editTxtPassword = findViewById(R.id.editTxtPassword);
+        editTxtPassRepeat = findViewById(R.id.editTxtPassRepeat);
+        btnRegister = findViewById(R.id.btnRegister);
+
+        txtWarnName = findViewById(R.id.txtWarnName);
+        txtWarnEmail =findViewById(R.id.txtWarnEmail);
+        txtWarnPass=findViewById(R.id.txtWarnPass);
+        txtWarnPassRepeat=findViewById(R.id.txtWarnPassRepeat);
+        countriesSpinner=findViewById(R.id.spinnerCountry);
+        rgGender=findViewById(R.id.rgGender);
+        agreementCheck=findViewById(R.id.agreementCheck);
+        parent=findViewById(R.id.parent);
+    }
+
+
+}
