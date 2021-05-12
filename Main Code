@@ -86,7 +86,11 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean validateData(){
         Log.d(TAG, "validateData: Started");
-        if(editTxtName.getText().toString().equals("")){
+        char c;
+        boolean upperChar=false, lowerChar=false, numberChar=false;
+
+        //name
+        if(editTxtName.getText().toString().equals("") || editTxtPassword.getText().toString().contains(" ")){
             txtWarnName.setVisibility(View.VISIBLE);
             return false;
         } else if(editTxtName.length()<6) {
@@ -95,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         } else {txtWarnName.setVisibility(View.GONE);}
 
+        //email
         if(editTxtEmail.getText().toString().equals("")){
             txtWarnEmail.setVisibility(View.VISIBLE);
             return false;
@@ -103,7 +108,8 @@ public class MainActivity extends AppCompatActivity {
             return false;
         } else {txtWarnEmail.setVisibility(View.GONE);}
 
-        if(editTxtPassword.getText().toString().equals("")){
+        //password
+        if(editTxtPassword.getText().toString().equals("") || editTxtPassword.getText().toString().contains(" ")){
             txtWarnPass.setVisibility(View.VISIBLE);
             return false;
         } else if(editTxtPassword.length()<6){
@@ -112,11 +118,51 @@ public class MainActivity extends AppCompatActivity {
             return false;
         } else {txtWarnPass.setVisibility(View.GONE);}
 
+        for (int i = 0; i<editTxtPassword.length();i++){
+            c=editTxtPassword.getText().toString().charAt(i);
+            if(Character.isUpperCase(c)){
+                upperChar=true;
+            }
+            if(Character.isLowerCase(c)){
+                lowerChar=true;
+            }
+            if(Character.isDigit(c)){
+                numberChar=true;
+            }
+        }
+
+        if(!upperChar){
+            Toast.makeText(this, getResources().getString(R.string.toast_pass_upper), Toast.LENGTH_SHORT).show();
+            txtWarnPass.setVisibility(View.VISIBLE);
+            return false;
+        } else {
+            txtWarnPass.setVisibility(View.GONE);
+        }
+
+        if(!lowerChar){
+            Toast.makeText(this, getResources().getString(R.string.toast_pass_lower), Toast.LENGTH_SHORT).show();
+            txtWarnPass.setVisibility(View.VISIBLE);
+            return false;
+        } else {
+            txtWarnPass.setVisibility(View.GONE);
+        }
+
+        if(!numberChar){
+            Toast.makeText(this, getResources().getString(R.string.toast_pass_number), Toast.LENGTH_SHORT).show();
+            txtWarnPass.setVisibility(View.VISIBLE);
+            return false;
+        } else {
+            txtWarnPass.setVisibility(View.GONE);
+        }
+
+
+        //repeat-pass
         if(editTxtPassRepeat.getText().toString().equals("")){
             txtWarnPassRepeat.setVisibility(View.VISIBLE);
             return false;
         } else {txtWarnPassRepeat.setVisibility(View.GONE);}
 
+        //pass==equal
         if(!editTxtPassword.getText().toString().equals(editTxtPassRepeat.getText().toString())){
             Toast.makeText(this, getResources().getString(R.string.toast_pass_match), Toast.LENGTH_SHORT).show();
             txtWarnPassRepeat.setVisibility(View.VISIBLE);
