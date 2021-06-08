@@ -5,8 +5,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         boolean upperChar=false, lowerChar=false, numberChar=false;
 
         //name
-        if(editTxtName.getText().toString().equals("") || editTxtPassword.getText().toString().contains(" ")){
+        if(editTxtName.getText().toString().equals("") || trySpace(editTxtName.getText().toString())){
             txtWarnName.setVisibility(View.VISIBLE);
             return false;
         } else if(editTxtName.length()<6) {
@@ -103,13 +103,13 @@ public class MainActivity extends AppCompatActivity {
         if(editTxtEmail.getText().toString().equals("")){
             txtWarnEmail.setVisibility(View.VISIBLE);
             return false;
-        } else if(!editTxtEmail.getText().toString().contains("@")){
+        }else if(!Patterns.EMAIL_ADDRESS.matcher(editTxtEmail.getText().toString()).matches()){
             txtWarnEmail.setVisibility(View.VISIBLE);
             return false;
         } else {txtWarnEmail.setVisibility(View.GONE);}
 
         //password
-        if(editTxtPassword.getText().toString().equals("") || editTxtPassword.getText().toString().contains(" ")){
+        if(editTxtPassword.getText().toString().equals("") || trySpace(editTxtPassword.getText().toString())){
             txtWarnPass.setVisibility(View.VISIBLE);
             return false;
         } else if(editTxtPassword.length()<6){
@@ -189,6 +189,15 @@ public class MainActivity extends AppCompatActivity {
         rgGender=findViewById(R.id.rgGender);
         agreementCheck=findViewById(R.id.agreementCheck);
         parent=findViewById(R.id.parent);
+    }
+
+    public boolean trySpace(String b){
+        for(int i =0; i< b.length(); i++){
+            if(b.charAt(i) == ' '){
+                return true;
+            }
+        }
+        return false;
     }
 
 
