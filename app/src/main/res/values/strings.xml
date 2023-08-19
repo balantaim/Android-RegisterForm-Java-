@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">10 app UI Interface</string>
+    
+    <array name="countries">
+        <item>USA</item>
+        <item>Bulgaria</item>
+        <item>Italy</item>
+        <item>Russia</item>
+        <item>German</item>
+        <item>France</item>
+        <item>Romania</item>
+    </array>
+    <string name="register_heading">Register Form</string>
+    <string name="rName">Name</string>
+    <string name="rEmail">Email</string>
+    <string name="rPass">Password</string>
+    <string name="rRepPass">Re-enter Password</string>
+    <string name="rGender">Gender:</string>
+    <string name="rCountry">Country:</string>
+    <string name="rMale">Male</string>
+    <string name="rFemale">Female</string>
+    <string name="rOther">Other</string>
+    <string name="rAgree">I agree</string>
+    <string name="rLicenseText">This is the license agreement.</string>
+    <string name="insert_name">insert your name</string>
+    <string name="insert_email">insert valid email</string>
+    <string name="insert_pass">insert your password</string>
+    <string name="insert_repeat_pass">repeat your password</string>
+    <string name="checkbox">You need to accept the agreement</string>
+    <string name="register">Register</string>
+    <string name="toast_agree">You need to accept the agreement</string>
+    <string name="toast_name_length">Name should be at least 6 characters</string>
+    <string name="toast_pass_length">Password should be at least 6 symbols</string>
+    <string name="toast_pass_match">Password field doesnt match</string>
+    <string name="toast_pass_number">You need number character!</string>
+    <string name="toast_pass_upper">You need uppercase character!</string>
+    <string name="toast_pass_lower">You need lowercase character!</string>
+</resources>

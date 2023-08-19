@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">10 app UI Interface</string>
+
+    <array name="countries">
+        <item>САЩ</item>
+        <item>България</item>
+        <item>Италия</item>
+        <item>Русия</item>
+        <item>Германия</item>
+        <item>Франция</item>
+        <item>Румъния</item>
+    </array>
+    <string name="register_heading">Регистрационна Форма</string>
+    <string name="rName">Име</string>
+    <string name="rEmail">Email</string>
+    <string name="rPass">Парола</string>
+    <string name="rRepPass">Повтаряне на паролата</string>
+    <string name="rGender">Пол:</string>
+    <string name="rCountry">Държава:</string>
+    <string name="rMale">Мъж</string>
+    <string name="rFemale">Жена</string>
+    <string name="rOther">Друг</string>
+    <string name="rAgree">Аз приемам</string>
+    <string name="rLicenseText">Това е споразумение за право на достъп.</string>
+    <string name="insert_name">попълнете вашето име</string>
+    <string name="insert_email">попълнете валиден email</string>
+    <string name="insert_pass">попълнете вашата парола</string>
+    <string name="insert_repeat_pass">повторете вашата парола</string>
+    <string name="checkbox">Приемете споразумението за да продължите</string>
+    <string name="register">Регистрация</string>
+    <string name="toast_agree">Приемете споразумението за да продължите</string>
+    <string name="toast_name_length">Името трябва да съдържа поне 6 символа</string>
+    <string name="toast_pass_length">Паролата рябва да съдържа поне 6 символа</string>
+    <string name="toast_pass_match">Паролите не съвпадат</string>
+    <string name="toast_pass_number">Добавете число към паролата!</string>
+    <string name="toast_pass_upper">Добавете главна буква към паролата!</string>
+    <string name="toast_pass_lower">Добавете малка буква към паролата!</string>
+</resources>
