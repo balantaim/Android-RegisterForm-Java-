@@ -2,30 +2,36 @@ package com.example.a10appuiinterface;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.a10appuiinterface.network.PostData;
 import com.example.a10appuiinterface.databinding.ActivityMainBinding;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.a10appuiinterface.network.JsonPlaceholderForFakeData;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private ActivityMainBinding binding;
-
+    //private Postgres dbManager;
+    private Handler handler;
+    private ExecutorService executorService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 initRegister();
+                //registrationSuccess();
             }
         });
     }
@@ -52,36 +59,26 @@ public class MainActivity extends AppCompatActivity {
 
         if (validateData()) {
             if (binding.agreementCheck.isChecked()) {
-                showSnackBar();
+                registrationSuccess();
             } else {
                 Toast.makeText(this, getResources().getString(R.string.toast_agree), Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void showSnackBar() {
-        Log.d(TAG, "showSnackBar is started");
-
-        String name = binding.editTxtName.getText().toString();
-        String email = binding.editTxtEmail.getText().toString();
-        //String country = countriesSpinner.getSelectedItem().toString();
-        String country = binding.spinnerCountry.getSelectedItem().toString();
-
-        String snackText = "Name: " + name + "\n" +
-                "Email: " + email;
-
-        Log.d(TAG, snackText);
-
-        Snackbar.make(binding.parent, snackText, Snackbar.LENGTH_INDEFINITE)
-                .setAction("Dismiss", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        binding.editTxtName.setText("");
-                        binding.editTxtEmail.setText("");
-                        binding.editTxtPassword.setText("");
-                        binding.editTxtPassRepeat.setText("");
-                    }
-                }).show();
+    private void registrationSuccess() {
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        startActivity(intent);
+//        Snackbar.make(binding.parent, snackText, Snackbar.LENGTH_INDEFINITE)
+//                .setAction("Dismiss", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        binding.editTxtName.setText("");
+//                        binding.editTxtEmail.setText("");
+//                        binding.editTxtPassword.setText("");
+//                        binding.editTxtPassRepeat.setText("");
+//                    }
+//                }).show();
     }
 
     private boolean validateData() {
@@ -180,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-
     public boolean trySpace(String b) {
         for (int i = 0; i < b.length(); i++) {
             if (b.charAt(i) == ' ') {
